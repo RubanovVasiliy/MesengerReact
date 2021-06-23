@@ -1,17 +1,12 @@
-import ava from "../../images/ava.jpeg";
 import classes from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 function Profile() {
     return (
         <div className={classes.content}>
-            <div>
-                <img src={ava} alt='' width='300px'/>
-            </div>
-            <div>
-                Ava + description
-            </div>
-            <MyPosts />
+            <ProfileInfo/>
+            <MyPosts/>
         </div>
     );
 }
