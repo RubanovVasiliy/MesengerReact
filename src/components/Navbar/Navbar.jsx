@@ -3,8 +3,7 @@ import {NavLink} from "react-router-dom";
 import Friend from "../Friends/Friend/Friend";
 
 function Navbar(props) {
-    debugger
-    let friendElement = props.state.friends
+    let friendElement = props.store.getState().friendsPage.friends
         .map(f => <Friend name={f.name} img={f.img}/>)
 
     return (
