@@ -12,3 +12,13 @@
 .item a.active {
     color: darkcyan;
 }
+
+.friends {
+    font-size: x-large;
+    margin-top: 50px;
+}
+
+.friendsItems {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
