@@ -10,10 +10,11 @@ import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 
 function App(props) {
+    debugger
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Navbar state={props.state.friendsBar}/>
+            <Navbar state={props.state.friendsPage}/>
             <div className='app-wrapper-content'>
                 <Route path='/profile' render={() => <Profile
                     profilePage={props.state.profilePage}
@@ -26,7 +27,7 @@ function App(props) {
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
-                <Route path='/friends' render={() => <Friends state={props.state.friendsBar}/>}/>
+                <Route path='/friends' render={() => <Friends state={props.state.friendsPage}/>}/>
             </div>
         </div>
     );
