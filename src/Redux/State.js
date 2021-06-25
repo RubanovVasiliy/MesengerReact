@@ -1,7 +1,8 @@
 import friend_ava from './../images/post_ava.jpeg'
 
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const ADD_POST = 'ADD-POST'
+import dialogsReducer from './dialogs-reducer'
+import sidebarReducer from './sidebar-reducer'
+import profileReducer from './profile-reducer'
 
 let store = {
     _state: {
@@ -11,7 +12,7 @@ let store = {
                 {id: 2, message: 'It\'s my first post.', likesCount: 3},
                 {id: 3, message: 'Yo', likesCount: 42}
             ],
-            newPostText: 'it'
+            newPostText: ''
         },
         dialogsPage: {
             dialogs: [
@@ -24,7 +25,8 @@ let store = {
                 {id: 1, message: 'Hi'},
                 {id: 2, message: 'Hello'},
                 {id: 3, message: 'Yo'}
-            ]
+            ],
+            newMessageText: ''
         },
         friendsBar: {
             friends: [
@@ -43,37 +45,13 @@ let store = {
     subscribe(observer) {
         this._callSubscriber = observer
     },
-    dispatch(action, payload) {
-        switch (action.type) {
-            case ADD_POST:
-                let newPost = {
-                    id: 5,
-                    message: this._state.profilePage.newPostText,
-                    likesCount: 0
-                };
-                this._state.profilePage.posts.push(newPost);
-                this._state.profilePage.newPostText = ''
-                this._callSubscriber(this._state)
-                break;
+    dispatch(action) {
 
-            case UPDATE_NEW_POST_TEXT:
-                this._state.profilePage.newPostText = action.newText;
-                this._callSubscriber(this._state)
-                break;
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action)
 
-        }
-    }
-}
-
-export const addPostActionCreator = () => {
-    return {
-        type: 'ADD-POST'
-    }
-}
-
-export const updateNewPOstTextActionCreator = (text) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT', newText: text
+        this._callSubscriber(this._state)
     }
 }
 
