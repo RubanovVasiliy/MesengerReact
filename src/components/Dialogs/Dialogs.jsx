@@ -2,6 +2,7 @@ import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
+import {sendMessage} from "../../Redux/dialogs-reducer";
 
 function Dialogs(props) {
 
@@ -16,7 +17,7 @@ function Dialogs(props) {
     let addMessage = () => {
         let text = newMessageElement.current.value;
         if (text !== '') {
-            props.addMessage()
+            props.sendMessage()
         }
     }
 
