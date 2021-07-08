@@ -1,5 +1,5 @@
 import axios from "axios";
-import {API_KEY} from "../Redux/settings";
+import {API_KEY} from "../settings";
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,18 +9,26 @@ const instance = axios.create({
     }
 })
 
-
 export const userAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
-
     postFollow(userId) {
         return instance.post(`follow/${userId}`)
     },
-
-    deleteFollow(userId) {
+    deleteUnFollow(userId) {
         return instance.delete(`follow/${userId}`)
+    },
+    getAuthMe() {
+        return instance.get(`auth/me`)
+    }
+
+}
+
+export const profileAPI = {
+    getProfile(userId) {
+        return instance.get(`profile/${userId}`)
+
     }
 }
