@@ -9,6 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
 
 function App(props) {
 
@@ -23,6 +24,7 @@ function App(props) {
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/login' render={() => <LoginPage/>}/>
                     {/*<Route path='/friends' render={() => <Friends store={props.store}/>}/>*/}
                 </div>
 
