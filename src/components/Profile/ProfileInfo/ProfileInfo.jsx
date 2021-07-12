@@ -12,7 +12,9 @@ function ProfileInfo(props) {
         <div className={classes.content}>
             <div>
                 <img src={ava} alt='' width='300px'/>
-                <img src={props.profile.photos.large}/>
+                <img src={props.profile.photos.large}
+                     alt="Profile logo"
+                />
             </div>
             <div className={classes.aboutMe}>
                 About me

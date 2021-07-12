@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 
-function Login(props) {
+function Login() {
     const onSubmit = values => {
         // print the form values to the console
         console.log(values)
@@ -12,11 +12,7 @@ function Login(props) {
     </div>
 }
 
-LoginReduxForm = reduxForm({
-    form: 'login'
-})(LoginReduxForm)
-
-function LoginReduxForm(props) {
+function LoginForm(props) {
     const {handleSubmit} = props
     return (
         <form onSubmit={handleSubmit}>
@@ -35,5 +31,7 @@ function LoginReduxForm(props) {
         </form>
     )
 }
+
+const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
 export default Login

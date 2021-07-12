@@ -5,7 +5,9 @@ function Post(props) {
 
     return (
         <div className={classes.item}>
-            <img src={post_ava}/>
+            <img src={post_ava}
+                 alt="User logo"
+            />
             {props.message}
             <div>
                 <span> like {props.likesCount} </span>

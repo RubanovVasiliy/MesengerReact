@@ -1,4 +1,3 @@
-import preloader from "../../../images/preloader.gif";
 import React from "react";
 import classes from "../../Users/Users.module.css";
 

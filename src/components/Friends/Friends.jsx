@@ -1,4 +1,3 @@
-import classes from './Friends.module.css'
 import Friend from "./Friend/Friend";
 
 function Friends(props) {

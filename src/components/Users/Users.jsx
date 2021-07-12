@@ -15,7 +15,9 @@ function Users(props) {
                             <div>
                                 <NavLink to={'/profile/' + u.id}>
                                     <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                         className={classes.userPhoto}/>
+                                         className={classes.userPhoto}
+                                         alt="Small logo"
+                                    />
                                 </NavLink>
                             </div>
                             <div>

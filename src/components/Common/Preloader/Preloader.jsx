@@ -3,7 +3,9 @@ import React from "react";
 
 function Preloader() {
     return <div style={{backgroundColor: 'white'}}>
-        <img src={preloader}/>
+        <img src={preloader}
+             alt="Preloader"
+        />
     </div>
 }
 
