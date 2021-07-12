@@ -5,6 +5,7 @@ import sidebarReducer from "./sidebar-reducer";
 import friendsReducer from "./friends-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
+import { reducer as formReducer } from 'redux-form'
 import thunk from "redux-thunk"
 
 
@@ -14,7 +15,8 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     friendsPage: friendsReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 let store = createStore(reducers, compose(
