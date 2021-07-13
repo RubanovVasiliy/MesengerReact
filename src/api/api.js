@@ -26,7 +26,7 @@ export const authAPI = {
     getAuthMe() {
         return instance.get(`auth/me`)
     },
-    postAuthLogin(email, password, rememberMe) {
+    postAuthLogin(email, password, rememberMe = false) {
         return instance.post(`auth/login`, {
             email: email,
             password: password,
@@ -34,7 +34,7 @@ export const authAPI = {
         })
     },
     deleteAuthLogin() {
-        return instance.post(`auth/login`)
+        return instance.delete(`auth/login`)
     }
 }
 
