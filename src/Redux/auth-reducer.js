@@ -1,13 +1,17 @@
-import {authAPI} from "../api/api";
+import {authAPI, securityApi} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA'
+const GET_CAPTCHA_URL = 'GET_CAPTCHA_URL'
+const SET_CAPTCHA_NULL = 'SET_CAPTCHA_NULL'
+
 
 let initialState = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    captcha: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -16,6 +20,18 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload
+            }
+        }
+        case GET_CAPTCHA_URL: {
+            return {
+                ...state,
+                captcha: action.payload
+            }
+        }
+        case SET_CAPTCHA_NULL: {
+            return {
+                ...state,
+                captcha: null
             }
         }
         default:
@@ -33,20 +49,25 @@ export const getAuthUserData = () => dispatch => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
                 dispatch(setAuthUserData(id, email, login, true))
-                debugger
+                dispatch(setCaptchaNull())
             }
         })
 }
-export const login = (email, password, rememberMe) => dispatch => {
-    authAPI.postAuthLogin(email, password, rememberMe)
+export const login = (email, password, rememberMe, captcha = null) => dispatch => {
+    authAPI.postAuthLogin(email, password, rememberMe, captcha)
         .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getAuthUserData())
-            } else {
-                debugger
+            const errorMessage = () => {
                 let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
-                let action = stopSubmit('login', {_error: message})
-                dispatch(action)
+                dispatch(stopSubmit('login', {_error: message}))
+            }
+            const resultCode = response.data.resultCode
+            if (resultCode === 0) {
+                dispatch(getAuthUserData())
+            } else if (resultCode === 10) {
+                dispatch(getCaptcha())
+                if(captcha) errorMessage()
+            } else {
+                errorMessage()
             }
         })
 }
@@ -55,6 +76,16 @@ export const logout = () => dispatch => {
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, null, false))
+            }
+        })
+}
+export const setCaptcha = (url) => ({type: GET_CAPTCHA_URL, payload: url})
+export const setCaptchaNull = () => ({type: SET_CAPTCHA_NULL})
+export const getCaptcha = () => dispatch => {
+    securityApi.getCaptcha()
+        .then(response => {
+            if (response.data.url) {
+                dispatch(setCaptcha(response.data.url))
             }
         })
 }

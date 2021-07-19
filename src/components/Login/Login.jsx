@@ -9,6 +9,10 @@ import styles from './../Common/FormsControls/FormsControls.module.css'
 
 function Login(props) {
     const onSubmit = values => {
+        if (values.captcha) {
+            props.login(values.email, values.password, values.rememberMe, values.captcha)
+            return
+        }
         props.login(values.email, values.password, values.rememberMe)
     }
 
@@ -18,7 +22,7 @@ function Login(props) {
 
     return <div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>
 }
 
@@ -42,9 +46,27 @@ function LoginForm(props) {
             <div>
                 <Field type={'checkbox'} name={'rememberMe'} component={Input}/>remember me
             </div>
-            {props.error && <div className={styles.formSummaryError}>
-                {props.error}
-            </div>}
+            {
+                props.captchaUrl &&
+                <div>
+                    <div>
+                        Captcha
+                    </div>
+                    <div>
+                        <img src={props.captchaUrl} alt={'captcha'}/>
+                    </div>
+                    <div>
+                        <Field type={'input'} name={'captcha'} component={Input}/>
+                    </div>
+                </div>
+            }
+
+            {
+                props.error &&
+                <div className={styles.formSummaryError}>
+                    {props.error}
+                </div>
+            }
             <div>
                 <button type={'submit'}>Login</button>
             </div>
@@ -55,7 +77,8 @@ function LoginForm(props) {
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
 const mapStateToProps = state => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captcha
 })
 
 export default connect(mapStateToProps, {login})(Login)
