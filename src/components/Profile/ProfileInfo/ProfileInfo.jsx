@@ -1,7 +1,7 @@
 import ava from "../../../images/ava.jpeg";
 import classes from "./ProfileInfo.module.css";
 import Preloader from "../../Common/Preloader/Preloader";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 function ProfileInfo(props) {
     if (!props.profile) {
@@ -23,7 +23,7 @@ function ProfileInfo(props) {
             </div>
 
             <div className={classes.descriptionBlock}>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 Ava + description
                 <div className={classes.contacts}>
                     My Contacts
