@@ -1,7 +1,11 @@
 import React from "react";
 import classes from "../../Users/Users.module.css";
 
-function Paginator({pagesCount, currentPage, onPageChanged}) {
+function Paginator({currentPage, onPageChanged, totalUsersCount, pageSize}) {
+
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
+
+
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
@@ -19,13 +23,18 @@ function Paginator({pagesCount, currentPage, onPageChanged}) {
     return (
         <div>
             <lu>
-                <li className={currentPage && classes.selectedPage} >&laquo; </li>
-            {pages.map(p => {
-                return <li className={currentPage === p && classes.selectedPage}
-                             onClick={() => {
-                                 onPageChanged(p)
-                             }}>{p}</li>
-            })}
+                <li className={currentPage && classes.selectedPage} onClick={() => {
+                    onPageChanged(1)
+                }}>&laquo; </li>
+                {pages.map(p => {
+                    return <li className={currentPage === p && classes.selectedPage}
+                               onClick={() => {
+                                   onPageChanged(p)
+                               }}>{p}</li>
+                })}
+                <li className={currentPage && classes.selectedPage} onClick={() => {
+                    onPageChanged(pagesCount)
+                }}>&laquo; </li>
             </lu>
         </div>
     )
