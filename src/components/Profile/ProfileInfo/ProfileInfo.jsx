@@ -1,48 +1,51 @@
-import ava from "../../../images/ava.jpeg";
+import ava from "../../../images/guest_ava_small.jpg";
 import classes from "./ProfileInfo.module.css";
 import Preloader from "../../Common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-function ProfileInfo(props) {
-    if (!props.profile) {
+
+function ProfileInfo({profile, status, updateStatus}) {
+    if (!profile) {
         return <Preloader/>
     }
 
     return (
         <div className={classes.content}>
             <div>
-                <img src={ava} alt='' width='300px'/>
-                <img src={props.profile.photos.large}
-                     alt="Profile logo"
-                />
+                {
+                    !profile.photos.large ?
+                        <img src={ava} alt='' width='300px'/>
+                        :
+                        <img src={profile.photos.large} alt="Profile logo"/>
+                }
             </div>
             <div className={classes.aboutMe}>
                 About me
-                {props.profile.aboutMe ? <div> {props.profile.contacts.aboutMe}</div> : null}
+                {profile.aboutMe ? <div> {profile.contacts.aboutMe}</div> : null}
 
             </div>
 
             <div className={classes.descriptionBlock}>
-                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 Ava + description
                 <div className={classes.contacts}>
                     My Contacts
-                    {props.profile.contacts.facebook ?
-                        <div>Facebook {props.profile.contacts.facebook}</div> : null}
-                    {props.profile.contacts.website ? <div>Facebook {props.profile.contacts.website}</div> : null}
-                    {props.profile.contacts.vk ? <div>vk {props.profile.contacts.vk}</div> : null}
-                    {props.profile.contacts.twitter ? <div>twitter {props.profile.contacts.twitter}</div> : null}
-                    {props.profile.contacts.instagram ? <div>instagram {props.profile.contacts.instagram}</div> : null}
-                    {props.profile.contacts.youtube ? <div>youtube {props.profile.contacts.youtube}</div> : null}
-                    {props.profile.contacts.github ? <div>github {props.profile.contacts.github}</div> : null}
-                    {props.profile.contacts.mainLink ? <div>mainLink {props.profile.contacts.mainLink}</div> : null}
+                    {profile.contacts.facebook ? <div>Facebook {profile.contacts.facebook}</div> : null}
+                    {profile.contacts.website ? <div>Facebook {profile.contacts.website}</div> : null}
+                    {profile.contacts.vk ? <div>vk {profile.contacts.vk}</div> : null}
+                    {profile.contacts.twitter ? <div>twitter {profile.contacts.twitter}</div> : null}
+                    {profile.contacts.instagram ? <div>instagram {profile.contacts.instagram}</div> : null}
+                    {profile.contacts.youtube ? <div>youtube {profile.contacts.youtube}</div> : null}
+                    {profile.contacts.github ? <div>github {profile.contacts.github}</div> : null}
+                    {profile.contacts.mainLink ? <div>mainLink {profile.contacts.mainLink}</div> : null}
                 </div>
                 <div>
-                    {props.profile.lookingForAJob ?
+                    {profile.lookingForAJob ?
                         <div>
-                            Search for a job {props.profile.contacts.lookingForAJob}
-                            {props.profile.lookingForAJobDescription ?
-                                <div>{props.profile.lookingForAJobDescription}</div> : null}
+                            Search for a job
+                            {profile.contacts.lookingForAJob}
+                            {profile.lookingForAJobDescription ?
+                                <div>{profile.lookingForAJobDescription}</div> : null}
 
                         </div>
                         : null}
